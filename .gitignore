@@ -1,0 +1,121 @@
+# Compiled C files
+*.o
+*.out
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+
+!*.*
+!*/
+
+# Object files
+*.obj
+
+# Compiled executables
+a.out
+*.app
+
+# macOS executables
+*.dSYM/
+*.app.dSYM/
+
+# Visual Studio Code specific files
+.vscode/
+
+# Compiled files from IDEs
+.idea/
+*.code-workspace
+
+# Code::Blocks specific files
+*.depend
+*.layout
+
+# Xcode specific files
+*.xcuserstate
+project.xcworkspace/
+
+# Eclipse specific files
+.settings/
+.cproject
+.project
+
+# CodeWarrior specific files
+*.cwproject
+
+# Qt Creator specific files
+*.pro.user
+*.moc
+*.qbs
+
+# NetBeans specific files
+nbproject/
+
+# Sublime Text specific files
+*.sublime-project
+*.sublime-workspace
+
+# Visual Studio specific files
+*.suo
+*.pdb
+*.ipch/
+*.aps
+*.ncb
+*.opendb
+*.sdf
+*.sln.docstates
+*_i.c
+*_p.c
+*.ilk
+*.sbr
+*.pch
+*.tlb
+
+# KDevelop specific files
+*.kdev4
+
+# DevC++ specific files
+*.layout
+
+# MATLAB specific files
+*.asv
+*.mexa64
+*.mexw32
+*.mexw64
+*.mltbx
+*.mltbx.lock
+
+# Geany specific files
+*.geany
+
+# MinGW-w64 specific files
+mingw-w64/
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
