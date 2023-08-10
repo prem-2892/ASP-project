@@ -18,20 +18,14 @@ int main()
     struct sockaddr_in servaddr, cli;
     char buff[MAX];
     int n;
-
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
     if (sockfd < 0)
     {
         printf("....Error in socket creation....\n");
         exit(1);
     }
     else
-    {
-
         printf("....Client socket is created....\n");
-    }
-
     bzero(&servaddr, sizeof(servaddr));
     bzero(buff, sizeof(buff));
     servaddr.sin_family = AF_INET;
@@ -60,7 +54,6 @@ int main()
             servaddr.sin_port = htons(PORT1);
         }
     }
-
     if (connect(sockfd, (SA *)&servaddr, sizeof(servaddr)) != 0)
     {
         printf("....Error in connecting with server....\n");
@@ -73,7 +66,6 @@ int main()
         lseek(counterfd, 0, SEEK_SET);
         write(counterfd, buff1, 1);
     }
-
     for (;;)
     {
         bzero(buff, sizeof(buff));
