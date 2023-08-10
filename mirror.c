@@ -14,21 +14,7 @@
 
 void ServiceClient(int connfd)
 {
-    char buff[MAX];
-    int n;
-    for (;;)
-    {
-        bzero(buff, MAX);
-        read(connfd, buff, sizeof(buff));
-        if ((strncmp(buff, "quit", 4)) == 0)
-        {
-            printf("\n....Disconnected from client side....\n");
-            break;
-        }
-        dup2(connfd, 1);
-        dup2(connfd, 2);
-        system(buff);
-    }
+    // processing file transfer
 }
 
 int main()
@@ -62,7 +48,7 @@ int main()
         exit(0);
     }
     else
-        printf("....ServerB is listening....\n");
+        printf("....Mirror is listening....\n");
     len = sizeof(cli);
     int cnt = 0;
     for (;;)

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-for i in {1..10}
+for i in {1..12}
 do
     gcc -o "client$i" "client.c"
-    echo -n "Compilation completed successfully"
 done
+echo -n "Compilation completed successfully"

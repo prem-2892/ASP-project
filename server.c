@@ -14,24 +14,12 @@
 
 void ServiceClient(int connfd)
 {
-    char buff[MAX];
-    for (;;)
-    {
-        bzero(buff, MAX);
-        read(connfd, buff, sizeof(buff));
-        if ((strncmp(buff, "quit", 4)) == 0)
-        {
-            printf("\n....Disconnected from client side....\n");
-            break;
-        }
-        dup2(connfd, 1);
-        dup2(connfd, 2);
-        system(buff);
-    }
+    // processing file transfer
 }
 
 int main()
 {
+    system("echo 1 > counter.txt");
     int sockfd, connfd, len;
     struct sockaddr_in servaddr, cli;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -61,7 +49,7 @@ int main()
         exit(0);
     }
     else
-        printf("....ServerA is listening....\n");
+        printf("....Server is listening....\n");
     len = sizeof(cli);
     int cnt = 0;
     for (;;)

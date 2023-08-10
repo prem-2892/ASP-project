@@ -34,6 +34,8 @@ int main()
     char buff1[10];
     read(counterfd, buff1, 1);
     int b = buff1[0] - 48;
+    // int b = 0;
+    printf("Server: %d | %d\n", b, buff1[0]);
     if (b <= 5)
     {
         servaddr.sin_port = htons(PORT1);
