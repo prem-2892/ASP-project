@@ -9,10 +9,13 @@
 #include <unistd.h>
 #include <fcntl.h>
 #define MAX 65536
-#define PORT 3361
+
+// PORT for MIRROR
+#define PORT 3381
+
 #define SA struct sockaddr
 
-void ServiceClient(int connfd)
+void processClient(int connfd)
 {
     // processing file transfer
 }
@@ -28,11 +31,14 @@ int main()
         exit(1);
     }
     else
+    {
         printf("....Server socket is created....\n");
+    }
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
+
     if ((bind(sockfd, (SA *)&servaddr, sizeof(servaddr))) != 0)
     {
         printf("....Error in socket binding....\n");
@@ -42,15 +48,20 @@ int main()
     {
         printf("....Server socket is binded....\n");
     }
+
     if ((listen(sockfd, 10)) != 0)
     {
         printf("....Error in listening from client side....\n");
         exit(0);
     }
     else
+    {
         printf("....Mirror is listening....\n");
+    }
+
     len = sizeof(cli);
     int cnt = 0;
+
     for (;;)
     {
         connfd = accept(sockfd, (SA *)&cli, &len);
@@ -69,7 +80,7 @@ int main()
         if (pid == 0)
         {
             close(sockfd);
-            ServiceClient(connfd);
+            processClient(connfd);
         }
     }
     close(connfd);

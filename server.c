@@ -8,11 +8,15 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+// Maximum number of limit
 #define MAX 65536
-#define PORT 3360
+
+// Server port decided
+#define PORT 3380
 #define SA struct sockaddr
 
-void ServiceClient(int connfd)
+void processClient(int connfd)
 {
     // processing file transfer
 }
@@ -70,7 +74,7 @@ int main()
         if (pid == 0)
         {
             close(sockfd);
-            ServiceClient(connfd);
+            processClient(connfd);
         }
     }
     close(connfd);
