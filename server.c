@@ -23,22 +23,28 @@ void processClient(int connfd)
 
 int main()
 {
-    system("echo 1 > counter.txt");
-    int sockfd, connfd, len;
+    system("echo 1 > totalClients.txt");
+
+    int _socketFD, connfd, len;
     struct sockaddr_in servaddr, cli;
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0)
+    _socketFD = socket(AF_INET, SOCK_STREAM, 0);
+    if (_socketFD < 0)
     {
         printf("....Error in socket creation....\n");
         exit(1);
     }
     else
+    {
         printf("....Server socket is created....\n");
+    }
+
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
-    if ((bind(sockfd, (SA *)&servaddr, sizeof(servaddr))) != 0)
+
+    // Trying to bind server connection
+    if ((bind(_socketFD, (SA *)&servaddr, sizeof(servaddr))) != 0)
     {
         printf("....Error in socket binding....\n");
         exit(1);
@@ -47,18 +53,24 @@ int main()
     {
         printf("....Server socket is binded....\n");
     }
-    if ((listen(sockfd, 10)) != 0)
+
+    if ((listen(_socketFD, 10)) != 0)
     {
         printf("....Error in listening from client side....\n");
         exit(0);
     }
     else
+    {
         printf("....Server is listening....\n");
+    }
+
     len = sizeof(cli);
-    int cnt = 0;
+
+    int _counter = 0;
+
     for (;;)
     {
-        connfd = accept(sockfd, (SA *)&cli, &len);
+        connfd = accept(_socketFD, (SA *)&cli, &len);
 
         if (connfd < 0)
         {
@@ -66,14 +78,14 @@ int main()
         }
         else
         {
-            cnt++;
-            printf("\n....server accept the client %d...\n", cnt);
+            _counter++;
+            printf("\n....server accept the client %d...\n", _counter);
         }
-        printf("Client %d connected...\n", cnt);
+        printf("Client %d connected...\n", _counter);
         int pid = fork();
         if (pid == 0)
         {
-            close(sockfd);
+            close(_socketFD);
             processClient(connfd);
         }
     }

@@ -7,20 +7,28 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+// MAX LIMIT
 #define MAX 65536
+
+// 1st Port (SERVER)
 #define PORT1 3380
+
+// 2nd Port (MIRROR)
 #define PORT2 3381
+
+// Socket Address
 #define SA struct sockaddr
 
 int main()
 {
-    int sockfd, connfd, n;
+    int _socketFD, connFD, n;
     struct sockaddr_in servaddr, cli;
     char buff[MAX];
 
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    _socketFD = socket(AF_INET, SOCK_STREAM, 0);
 
-    if (sockfd < 0)
+    if (_socketFD < 0)
     {
         printf("....Error in socket creation....\n");
         exit(1);
@@ -35,7 +43,7 @@ int main()
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    int counterfd = open("counter.txt", O_RDWR);
+    int counterfd = open("totalClients.txt", O_RDWR);
     char buff1[10];
 
     read(counterfd, buff1, 1);
@@ -65,14 +73,15 @@ int main()
         }
     }
 
-    if (connect(sockfd, (SA *)&servaddr, sizeof(servaddr)) != 0)
+    // Trying to establish connections
+    if (connect(_socketFD, (SA *)&servaddr, sizeof(servaddr)) != 0)
     {
         printf("....Error in connecting with server....\n");
         exit(1);
     }
     else
     {
-        // updating the number of active files in counter.txt
+        // updating the number of active files in totalClients.txt
 
         printf("....Connected to the server....\n");
         buff1[0] = b + 49;
@@ -87,17 +96,17 @@ int main()
         n = 0;
         while ((buff[n++] = getchar()) != '\n')
         {
-            write(sockfd, buff, sizeof(buff));
+            write(_socketFD, buff, sizeof(buff));
         }
 
         if ((strncmp(buff, "quit", 4)) == 0)
         {
-            close(sockfd);
+            close(_socketFD);
             printf("....Disconnected from Server side....\n");
             break;
         }
         bzero(buff, sizeof(buff));
-        read(sockfd, buff, sizeof(buff));
+        read(_socketFD, buff, sizeof(buff));
         printf("\nOutput of given Command recieved from server:\n %s", buff);
         bzero(buff, sizeof(buff));
     }
