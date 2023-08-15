@@ -19,6 +19,18 @@
 void processClient(int connfd)
 {
     // processing file transfer
+    char buff[MAX];
+    for (;;)
+    {
+        bzero(buff, MAX);
+        read(connfd, buff, sizeof(buff));
+        if ((strncmp(buff, "quit", 4)) == 0)
+        {
+            printf("\n....Disconnected from client side....\n");
+            break;
+        }
+        printf("\n\nRecieved Command: %s", buff);
+    }
 }
 
 int main()
